@@ -18,11 +18,11 @@ Make sure you have installed Node.js and `pnpm` package manager in your system.
     
     For Windows, you can download the installer from the [official website](https://nodejs.org).
 
- - **pnpm:** Once you have Node.js installed, you can install `pnpm`. On your terminal run:
+ <!-- - **pnpm:** Once you have Node.js installed, you can install `pnpm`. On your terminal run:
  
     ```bash
     npm install -g pnpm
-    ```
+    ``` -->
 
 ### Getting Started
 
@@ -34,10 +34,10 @@ cd github-pr-reporter
 
 2. Install dependencies:
 ```bash
-pnpm install 
+npm install 
 ```
 
-3. Generate a GitHub personal access token (PAT) following the instructions [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and set it as an environment variable in a .env file:
+3. Generate a GitHub personal access token (PAT) following the instructions [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and set it as an environment variable in a .env file in the project root directory:
 
 ```bash
 echo 'GITHUB_TOKEN=your_token_here' > .env
@@ -46,9 +46,9 @@ Replace `your_token_here` with your actual GitHub PAT.
 
 ## Running the App
 You can run the app using:
-    ```bash
-    pnpm start
-    ```
+```bash
+npm start
+```
 You will be prompted to enter comma-separated GitHub usernames for which you want to generate PR reports.
 
 ## Output
