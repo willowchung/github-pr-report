@@ -1,0 +1,67 @@
+@url = https://api.github.com
+@urlQL = https://api.github.com/graphql
+@token = <YOUR_PAT>
+
+## Get pull requests https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#get-a-pull-request
+GET {{url}}/repos/org/repo/pulls/3380 HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+X-GitHub-Api-Version: 2022-11-28
+
+### Get reviews for a pull request https://docs.github.com/en/rest/pulls/reviews?apiVersion=2022-11-28#list-reviews-for-a-pull-request
+
+GET {{url}}/repos/org/repo/pulls/3380/reviews HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+X-GitHub-Api-Version: 2022-11-28
+
+###
+#GET {{url}}/search/issues?q=is:pr+author:username
+GET {{url}}/search/issues?q=is:pr archived:false draft:false author:username
+#GET {{url}}/search/issues?q=user:username+is:pr  
+content-type: application/json
+Authorization: Bearer {{token}}
+X-GitHub-Api-Version: 2022-11-28
+
+###
+POST {{urlQL}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+//search(query: "is:pr archived:false draft:false author:username created:2023-07", type: ISSUE, first: 100) {  
+query {
+  search(query: "is:pr archived:false draft:false author:username", type: ISSUE, first: 100) {  
+    issueCount  
+    edges {  
+      node {  
+        ... on PullRequest {  
+          number  
+          title  
+          url
+          state  
+          createdAt  
+          updatedAt  
+          closedAt  
+          author {  
+            login  
+          }
+          repository {  
+            name
+          } 
+          reviews(first: 10, states: [APPROVED, CHANGES_REQUESTED]) {  
+            edges {  
+              node {  
+                createdAt  
+                state  
+                author {  
+                  login  
+                }  
+              }  
+            }  
+          } 
+        }
+      }  
+    }  
+  }  
+}  
